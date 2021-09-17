@@ -1,7 +1,3 @@
-from datetime import timezone
-from enum import unique
-
-from sqlalchemy.sql.expression import true
 from . import db    # it will import it from init.py
 from flask_login import UserMixin
 from sqlalchemy.sql import func # to store the datezone information automatically

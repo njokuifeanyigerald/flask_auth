@@ -19,13 +19,15 @@ def login():
             # check the password hash
             if check_password_hash(user.password, password):
                 flash('logged in successfully', category='success')
-                login_user(user)
+                login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
                 flash('incorrect password!', category='error')
         else:
             flash('email does not exist', category='error')
-    return render_template('login.html')
+    if current_user.is_authenticated:
+        return redirect (url_for('views.home'))
+    return render_template('login.html', user=current_user)
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -51,7 +53,9 @@ def register():
             db.session.commit()
             flash('account created', category='success')
             return redirect(url_for('auth.login'))
-    return render_template('signup.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('views.home'))
+    return render_template('signup.html', user=current_user)
 
 @login_required
 @auth.route('/logout')

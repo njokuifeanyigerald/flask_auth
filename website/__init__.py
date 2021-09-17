@@ -9,7 +9,7 @@ DB_NAME  = 'database.db'
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'bhjewuw3278238..fdklktfy,;s@djirk#$%'
+    app.config['SECRET_KEY'] = os.environ.get('secret_key')
     # for databse
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =  False
@@ -31,6 +31,9 @@ def create_app():
     login_manager = LoginManager()
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
+    login_manager.login_message = 'Please log in to access any page'
+    login_manager.login_message_category = "error"
+
 
     @login_manager.user_loader
     def load_user(id):
