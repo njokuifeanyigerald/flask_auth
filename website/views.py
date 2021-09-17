@@ -6,14 +6,17 @@ from werkzeug.utils import redirect
 views = Blueprint('views', __name__)
 from . import db
 from .models import Note
+from sqlalchemy import desc
 
 @views.route('/', methods=['GET','POST'])
 @login_required
 def home():
-    note = Note.query.all()
+    # for reference purpose
+    # there are 2 method to pull data from the current user either this way or 
+    # the 'user.note' way which works with current_user which will be added to the home.html
+    my_notes = Note.query.filter_by(user_id=current_user.id).order_by(desc(Note.date))
     if request.method == 'POST':
         note = request.form.get('note')
-
         if len(note) < 10:
             flash ('note is too short', category= 'error')
         else:
@@ -22,7 +25,4 @@ def home():
             db.session.commit()
             flash('Note successfully added', category='success')
             return redirect(url_for('views.home'))
-
-
-    
-    return render_template('home.html', user=current_user)
+    return render_template('home.html', user=current_user, my_notes=my_notes)
