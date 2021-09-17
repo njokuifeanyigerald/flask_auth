@@ -1,7 +1,7 @@
 # A FLASK AUTHENTICATION AND TODO APP
 ### where a user can register and also login their details to access the home page
 
-<p>it is a simple Flask(python web framework) websie </p>
+<p>it is a simple Flask(python web framework) website </p>
 <p>very simple to use and understand it.  made use of Blueprint to separate the files </p>
 <p> into different parts so I can easily understand it's functions </P>
  
