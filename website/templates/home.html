@@ -8,16 +8,18 @@
              type="text" placeholder="Create your Note here" name="note"></textarea>
         </div>
         <div class="form-group mt-3" align='center'>
-            <button class="btn btn-outline-info">Submit</button>
-           
+            <button class="btn btn-outline-info">Submit A Note</button>
         </div>
         <br>
     </form>
     <h3 class="text-center text-muted">Notes:</h3>
     <uL class="list-group list-group-flush" id="notes">
-        {% for note in user.note %}
+        {% for note in my_notes %}
         <li class="list-group-item">
             {{note.data}}
+            <button type="button" style="float: right;" class="close btn btn-outline-danger" onclick="deleteNote({{ note.id }})">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </li>
         {% endfor %}
 
